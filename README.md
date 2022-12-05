@@ -12,5 +12,5 @@ to adhere to the following principles
 
 Some exceptions can be made to the above rules if the problem requires further optimization, better
 readability or for other reasons. Not all solutions are optimal in terms of space and time
-complexity, but execution time should be reasonable. Sometimes syntax can be fancy just for the for
-the sake of being fancy.
+complexity, but execution time should be reasonable. Sometimes syntax can be fancy just for the sake
+of being fancy.
