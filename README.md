@@ -10,6 +10,7 @@ to adhere to the following principles
 - standard library over writing from scratch
 - the more syntax sugar the better
 
-Some exceptions can be made if the problem requires further optimization. Not all solutions are
-optimal in terms of space and time complexity, but execution time should be reasonable. Sometimes
-syntax can be fancy just for the for the sake of being fancy.
+Some exceptions can be made to the above rules if the problem requires further optimization, better
+readability or for other reasons. Not all solutions are optimal in terms of space and time
+complexity, but execution time should be reasonable. Sometimes syntax can be fancy just for the for
+the sake of being fancy.
