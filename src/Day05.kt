@@ -43,7 +43,7 @@ fun main() {
         val (stacks, moves) = getStacksAndMoves(input)
 
         moves.forEach {
-            for (i in 1..it[0]) stacks[it[2]]!!.push(stacks[it[1]]!!.pop())
+            repeat(it[0]) { _ -> stacks[it[2]]!!.push(stacks[it[1]]!!.pop()) }
         }
 
         return stacksToString(stacks)
@@ -55,8 +55,8 @@ fun main() {
         moves.forEach {
             val tempStack = Stack<Char>()
 
-            for (i in 1..it[0]) tempStack.push(stacks[it[1]]!!.pop())
-            for (i in 1..it[0]) stacks[it[2]]!!.push(tempStack.pop())
+            repeat(it[0]) { _ -> tempStack.push(stacks[it[1]]!!.pop()) }
+            repeat(it[0]) { _ -> stacks[it[2]]!!.push(tempStack.pop()) }
         }
 
         return stacksToString(stacks)
