@@ -1,7 +1,7 @@
 fun main() {
     fun getMessageMarker(input: String, markerLength: Int) =
-        input.windowed(markerLength, 1)
-            .asSequence()
+        input.asSequence()
+            .windowed(markerLength, 1)
             .mapIndexed { index, c -> index to c.toSet() }
             .first { it.second.count() == markerLength }
             .first + markerLength
