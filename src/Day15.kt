@@ -5,6 +5,8 @@ fun main() {
     fun calculateManhattan(a: Pair<Int, Int>, b: Pair<Int, Int>) =
         abs(a.first - b.first) + abs(a.second - b.second)
 
+    val emptyPair = Pair(-1, -1)
+
     fun parse(input: List<String>) =
         input
             .map {
@@ -56,18 +58,18 @@ fun main() {
             }
         }
 
-        throw Exception("No point for beacon found")
+        return emptyPair
     }
 
     fun part1(input: List<String>, targetY: Int): Int {
         val parsedInput = parse(input)
 
-        val manhattanDistances =
+        val sensors =
             parsedInput.map { Pair(it.first, calculateManhattan(it.first, it.second)) }
 
         val cannotBe = mutableListOf<Pair<Int, Int>>()
 
-        manhattanDistances.forEach {
+        sensors.forEach {
             val distanceToTargetRow = abs(targetY - it.first.second)
             if (distanceToTargetRow <= it.second) {
                 cannotBe.add(Pair(it.first.first, targetY))
@@ -80,10 +82,8 @@ fun main() {
 
         val beaconsOnTargetRow =
             parsedInput
-                .asSequence()
-                .map { it.second }
-                .filter { it.second == targetY }
-                .map { Pair(it.first, it.second) }
+                .filter { it.second.second == targetY }
+                .map { Pair(it.second.first, it.second.second) }
 
         return (cannotBe.toSet() - beaconsOnTargetRow.toSet()).count()
     }
@@ -91,21 +91,17 @@ fun main() {
     fun part2(input: List<String>, max: Int): Long {
         val parsedInput = parse(input)
 
-        val manhattanDistances =
+        val sensors =
             parsedInput.map { Pair(it.first, calculateManhattan(it.first, it.second)) }
 
-        val possibleSensors = mutableListOf<Pair<Int, Int>>()
-
-        manhattanDistances.forEach {
-            possibleSensors += getPossibleBeacons(it.first, it.second, max)
+        sensors.forEach {
+            val pos = getBeaconPosition(sensors - it, getPossibleBeacons(it.first, it.second, max))
+            if (pos != emptyPair) {
+                return pos.first * 4000000L + pos.second
+            }
         }
 
-        val pos = getBeaconPosition(
-            manhattanDistances,
-            possibleSensors
-        )
-
-        return pos.first * 4000000L + pos.second
+        throw Exception("Empty pos for beacon not found")
     }
 
     val input = readInputAsList("Day15")
